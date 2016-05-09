@@ -11,7 +11,8 @@
 /node_modules/
 
 # Exclude generated files
-/.build/
+/dist/
+/build/
 /.build-cache/
 
 # Exclude the sass cache

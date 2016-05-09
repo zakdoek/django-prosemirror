@@ -1,2 +1,1 @@
-src/prosemirror/_version.py export-subst
 prosemirror/_version.py export-subst
