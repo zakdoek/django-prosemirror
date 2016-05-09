@@ -17,7 +17,7 @@ SASS_SOURCEMAP ?= none
 all: build
 
 # Release
-build:
+build: package
 	
 # Development build
 set_dev:
@@ -25,3 +25,7 @@ set_dev:
 	$(eval DEBUG = 1)
 	$(eval SASS_STYLE = nested)
 	$(eval SASS_SOURCEMAP = file)
+
+# Build wheel
+package:
+	@python setup.py sdist bdist_wheel

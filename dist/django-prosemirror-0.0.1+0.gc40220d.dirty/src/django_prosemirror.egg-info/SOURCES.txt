@@ -1,8 +1,0 @@
-MANIFEST.in
-setup.cfg
-setup.py
-versioneer.py
-src/django_prosemirror.egg-info/PKG-INFO
-src/django_prosemirror.egg-info/SOURCES.txt
-src/django_prosemirror.egg-info/dependency_links.txt
-src/django_prosemirror.egg-info/top_level.txt
