@@ -11,7 +11,7 @@
 /node_modules/
 
 # Exclude generated files
-/django_prosemirror.egg*
+/django_prosemirror.egg*/
 /dist/
 /build/
 /.build-cache/
