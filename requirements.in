@@ -1,2 +1,6 @@
 # Development requirements
 django
+versioneer
+wheel
+pep8
+pylint

@@ -5,4 +5,13 @@
 #    pip-compile --output-file requirements.txt requirements.in
 #
 
+astroid==1.4.5            # via pylint
+colorama==0.3.7           # via pylint
 django==1.9.6
+lazy-object-proxy==1.2.2  # via astroid
+pep8==1.7.0
+pylint==1.5.5
+six==1.10.0               # via astroid, pylint
+versioneer==0.16
+wheel==0.29.0
+wrapt==1.10.8             # via astroid
