@@ -1,0 +1,18 @@
+# Exclude python compiles
+*.pyc
+
+# Exclude virtual environment
+/venv/
+
+# Exclude ruby bundle
+/.bundle/
+
+# Exclude node environment
+/node_modules/
+
+# Exclude generated files
+/.build/
+/.build-cache/
+
+# Exclude the sass cache
+/.sass-cache/
