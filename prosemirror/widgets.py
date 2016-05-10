@@ -11,10 +11,25 @@ from django import forms
 from django.forms import widgets
 from django.utils.safestring import mark_safe
 
+MAXI = {
+    "type": "bar",  # can be bar or tooltip
+    "schema": "maxi",  # can be maxi or micro
+}
+
+MICRO = {
+    "type": "tooltip",  # can be bar or tooltip
+    "schema": "micro",  # can be maxi or micro
+}
+
 DEFAULTS = {
-    "GLOBAL": {},
+    "GLOBAL": {
+        "inline_code": False,  # allows inline code
+        "rule": False,  # Allows rule
+    },
     "PROFILES": {
-        "default": {},
+        "default": MAXI,
+        "maxi": MAXI,
+        "micro": MICRO,
     },
 }
 CONFIG = getattr(settings, "PROSEMIRROR", {})
@@ -29,7 +44,7 @@ class ProseMirrorWidget(widgets.Textarea):
         Constructor
         """
         self.profile = kwargs.pop("prosemirror_profile", "default")
-        super(ProseMirror, self).__init__(*args, **kwargs)
+        super(ProseMirrorWidget, self).__init__(*args, **kwargs)
 
     @property
     def options(self):
@@ -49,11 +64,11 @@ class ProseMirrorWidget(widgets.Textarea):
         if "class" not in attrs.keys():
             attrs["class"] = ""
 
-        attrs["class"] += " prosemirror-box"
+        attrs["class"] = ("%s prosemirror-box" % attrs["class"]).strip()
 
         attrs["data-prosemirror-options"] = json.dumps(self.options)
 
-        html = super(ProseMirror, self).render(name, value, attrs)
+        html = super(ProseMirrorWidget, self).render(name, value, attrs)
 
         return mark_safe(html)
 

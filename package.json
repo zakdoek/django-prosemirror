@@ -20,6 +20,7 @@
     "node-sass": "^3.7.0",
     "postcss": "^5.0.21",
     "postcss-cli": "^2.5.2",
+    "prosemirror": "^0.6.1",
     "uglify-js": "^2.6.2",
     "uglifyify": "^3.0.1"
   },
@@ -39,6 +40,6 @@
     ]
   },
   "browserify-shim": {
-    "jquery": "global:jQuery"
+    "django": "global:django"
   }
 }

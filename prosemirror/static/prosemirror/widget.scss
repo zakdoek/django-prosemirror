@@ -1,9 +1,100 @@
 /**
  * The prosemirror widget css
  */
-$blue: #00f;
+
 
 .prosemirror-box {
-    color: $blue;
-    transform: translateY(50px);
+    display: none;
+
+    &.show {
+        display: block;
+    }
+}
+
+.prosemirror-editor {
+    margin: {
+        left: 170px;
+    }
+
+    .ProseMirror {
+        border-radius: 4px;
+        border: 1px solid #ccc;
+
+        .ProseMirror-menubar {
+            border-bottom: 1px solid #ccc;
+        }
+
+        &.ProseMirror-focused {
+            border: 1px solid #999;
+
+            .ProseMirror-menubar {
+                border-bottom: 1px solid #999;
+            }
+        }
+    }
+
+    .ProseMirror-content {
+        min-height: 200px;
+        outline: none;
+
+        h1, h2, h3, h4, h5, h6 {
+            font: {
+                weight: 300;
+                size: 24px;
+            }
+            color: #333;
+            background: {
+                color: transparent;
+            }
+            margin: 5px 0;
+            padding: 0;
+            text-transform: none;
+            letter-spacing: inherit;
+        }
+
+        h3, h4 {
+            font-size: 20px;
+        }
+
+        h5, h6 {
+            font-size: 16px;
+        }
+
+        h1, h3, h5 {
+            font-weight: normal;
+        }
+
+        ul, ol {
+            margin: 0;
+            padding: 0;
+            padding-left: 15px;
+        }
+
+        ul {
+            li {
+                list-style: disc;
+            }
+        }
+
+        blockquote {
+            border-left: 3px solid #417690;
+            margin-left: 0;
+            color: #333;
+        }
+
+        code {
+            color: #333;
+        }
+
+        hr {
+            height: 3px;
+            margin: 10px 0;
+            padding: 0;
+            background-color: #417690;
+
+            &:after {
+                display: none;
+            }
+        }
+    }
 }
