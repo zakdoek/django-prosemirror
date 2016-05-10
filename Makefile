@@ -10,32 +10,59 @@ DEBUG = 0
 BUILD_DIR ?= .build
 BUILD_CACHE_DIR ?= .build-cache
 SOURCE_DIR ?= ./
-SASS_STYLE ?= compressed
-SASS_SOURCEMAP ?= 0
 
 # Default
 all: build
 
 # Release
-build: scss package
-	
+build: clean scss browserify package
+
 # Development build
 set_dev:
 	@echo -e "\nActivating development modus\n"
 	$(eval DEBUG = 1)
-	$(eval SASS_STYLE = nested)
-	$(eval SASS_SOURCEMAP = prosemirror/static/prosemirror/widget.min.css.map)
+
+# Clean
+clean:
+	@rm -rf prosemirror/static/prosemirror/*.min.*
 
 # Scss
 scss:
-	@$(NPM_BIN)/node-sass \
-		--output-style $(SASS_STYLE) \
-		--source-map $(SASS_SOURCEMAP) \
-		prosemirror/static/prosemirror/widget.scss \
-		prosemirror/static/prosemirror/widget.min.css
+	@mkdir -p $(BUILD_CACHE_DIR)
+	@if [[ $(DEBUG) == 1 ]]; then \
+		$(NPM_BIN)/node-sass \
+			prosemirror/static/prosemirror/widget.scss \
+			$(BUILD_CACHE_DIR)/widget.css \
+			--output-style nested \
+			--source-map $(BUILD_CACHE_DIR)/widget.css.map; \
+		cat $(BUILD_CACHE_DIR)/widget.css | \
+			$(NPM_BIN)/postcss \
+			--map \
+			--use autoprefixer > \
+			prosemirror/static/prosemirror/widget.min.css; \
+	else \
+		$(NPM_BIN)/node-sass \
+			prosemirror/static/prosemirror/widget.scss \
+			$(BUILD_CACHE_DIR)/widget.css \
+			--output-style compressed; \
+		cat $(BUILD_CACHE_DIR)/widget.css | \
+			$(NPM_BIN)/postcss --use autoprefixer > \
+			prosemirror/static/prosemirror/widget.min.css; \
+	fi
 
 # Browserify
 browserify:
+	@if [[ $(DEBUG) == 1 ]]; then \
+		$(NPM_BIN)/browserify -d \
+			prosemirror/static/prosemirror/widget.js | \
+			$(NPM_BIN)/exorcist prosemirror/static/prosemirror/widget.min.js.map > \
+			prosemirror/static/prosemirror/widget.min.js; \
+	else \
+		$(NPM_BIN)/browserify -g uglifyify \
+			prosemirror/static/prosemirror/widget.js | \
+			$(NPM_BIN)/uglifyjs -cm > \
+			prosemirror/static/prosemirror/widget.min.js; \
+	fi
 
 # Build wheel
 package:

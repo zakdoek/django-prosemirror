@@ -12,7 +12,6 @@
 
 # Exclude generated files
 /prosemirror/static/prosemirror/widget.min.css
-/prosemirror/static/prosemirror/widget.min.css.map
 /prosemirror/static/prosemirror/widget.min.js
 /prosemirror/static/prosemirror/widget.min.js.map
 /django_prosemirror.egg*/
