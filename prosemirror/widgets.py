@@ -11,7 +11,13 @@ from django import forms
 from django.forms import widgets
 from django.utils.safestring import mark_safe
 
-GLOBAL_OPTIONS = getattr(settings, "PROSEMIRROR_OPTIONS", {})
+DEFAULTS = {
+    "GLOBAL": {},
+    "PROFILES": {
+        "default": {},
+    },
+}
+CONFIG = getattr(settings, "PROSEMIRROR", {})
 
 
 class ProseMirrorWidget(widgets.Textarea):
@@ -22,7 +28,7 @@ class ProseMirrorWidget(widgets.Textarea):
         """
         Constructor
         """
-        self.custom_options = kwargs.pop("prosemirror_options", {})
+        self.profile = kwargs.pop("prosemirror_profile", "default")
         super(ProseMirror, self).__init__(*args, **kwargs)
 
     @property
@@ -30,8 +36,10 @@ class ProseMirrorWidget(widgets.Textarea):
         """
         Get options
         """
-        options = GLOBAL_OPTIONS.copy()
-        options.update(self.custom_options)
+        config = DEFAULTS.copy()
+        config.update(CONFIG)
+        options = config["GLOBAL"].copy()
+        options.update(config["PROFILES"][self.profile])
         return options
 
     def render(self, name, value, attrs=None):

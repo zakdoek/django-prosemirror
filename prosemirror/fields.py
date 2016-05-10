@@ -17,8 +17,8 @@ class ProseMirrorField(TextField):
         """
         Constructor
         """
-        options = kwargs.pop("prosemirror_options", {})
-        self.widget = ProseMirrorWidget(prosemirror_options=options)
+        options = kwargs.pop("prosemirror_profile", "default")
+        self.widget = ProseMirrorWidget(prosemirror_profile=options)
         super(ProseMirrorField, self).__init__(*args, **kwargs)
 
     def formfield(self, **kwargs):

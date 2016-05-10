@@ -6,5 +6,5 @@ import $ from "jquery";
 
 $(document).ready(() => {
     /* eslint no-console: 1 */
-    console.log("Hello world");
+    console.log("Hello Django ProseMirror", $(".prosemirror-box"));
 });
