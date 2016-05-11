@@ -17,7 +17,7 @@ NAME = "django-prosemirror"
 AUTHOR = "Tom Van Damme"
 EMAIL = "t_o_mvandamme@hotmail.com"
 URL = "https://github.com/zakdoek/django-prosemirror/"
-LICENCE = "MIT"
+LICENSE = "MIT"
 DESCRIPTION = "Prosemirror field for django"
 PACKAGES = find_packages()
 CLASSIFIERS = [
@@ -37,7 +37,7 @@ if __name__ == "__main__":
         author=AUTHOR,
         author_email=EMAIL,
         url=URL,
-        licence=LICENCE,
+        license=LICENSE,
         description=DESCRIPTION,
         long_description=README,
         version=versioneer.get_version(),
