@@ -2,6 +2,8 @@
  * Browser component
  */
 
+import "babel-polyfill";
+
 import { jQuery as $ } from "django";
 import { ProseMirror } from "prosemirror/dist/edit";
 import "prosemirror/dist/markdown";
@@ -80,6 +82,40 @@ class ProseMirrorWrapper {
 }
 
 
+/**
+ * Initialize once
+ */
+const initProseMirror = (item) => {
+    const $item = $(item);
+    const id = $item.attr("id");
+
+    if ($item.data("prosemirror-field-id") !== id &&
+            (hasFeinCMS() && !id.includes("__prefix__"))) {
+        $item.data("prosemirror-field-wrapper", new ProseMirrorWrapper(item));
+        $item.data("prosemirror-field-id", id);
+    }
+};
+
+
+/**
+ * Initialize all
+ */
+const initProseMirrors =
+    () => $(".prosemirror-box").each((_, i) => initProseMirror(i));
+
+
+/**
+ * Fein Cms active detector
+ */
+const hasFeinCMS = () => !!window.contentblock_init_handlers;
+
+
+/**
+ * Bind initializers
+ */
 $(document).ready(() => {
-    $(".prosemirror-box").each((_, item) => new ProseMirrorWrapper(item));
+    if (hasFeinCMS()) {
+        window.contentblock_init_handlers.push(() => initProseMirrors());
+    }
+    initProseMirrors();
 });
