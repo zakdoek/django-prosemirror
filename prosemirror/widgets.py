@@ -9,7 +9,6 @@ from django.conf import settings
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django import forms
 from django.forms import widgets
-from django.utils.safestring import mark_safe
 
 MAXI = {
     "type": "bar",  # can be bar or tooltip
@@ -44,6 +43,11 @@ class ProseMirrorWidget(widgets.Textarea):
         Constructor
         """
         self.profile = kwargs.pop("prosemirror_profile", "default")
+        attrs = kwargs.get("attrs", {})
+        attrs["data-prosemirror-options"] = json.dumps(self.options)
+        attrs["class"] = (
+            "%s prosemirror-box" % attrs.get("class", "")).strip()
+        kwargs["attrs"] = attrs
         super(ProseMirrorWidget, self).__init__(*args, **kwargs)
 
     @property
@@ -56,21 +60,6 @@ class ProseMirrorWidget(widgets.Textarea):
         options = config["GLOBAL"].copy()
         options.update(config["PROFILES"][self.profile])
         return options
-
-    def render(self, name, value, attrs=None):
-        """
-        Render field
-        """
-        if "class" not in attrs.keys():
-            attrs["class"] = ""
-
-        attrs["class"] = ("%s prosemirror-box" % attrs["class"]).strip()
-
-        attrs["data-prosemirror-options"] = json.dumps(self.options)
-
-        html = super(ProseMirrorWidget, self).render(name, value, attrs)
-
-        return mark_safe(html)
 
     def _media(self):
         """

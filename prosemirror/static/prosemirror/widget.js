@@ -36,6 +36,8 @@ class ProseMirrorWrapper {
 
         // Initialize
         try {
+            $target.addClass("hide");
+
             this.editor = new ProseMirror({
                 schema: new Schema(this.schema),
                 place: $element.get(0),
@@ -50,7 +52,7 @@ class ProseMirrorWrapper {
             this.editor.on("change", this.handleChange.bind(this));
         } catch(_) {
             $element.remove();
-            $target.addClass("show");
+            $target.removeClass("hide");
         }
     }
 
