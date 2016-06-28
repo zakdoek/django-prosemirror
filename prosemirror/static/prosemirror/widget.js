@@ -91,8 +91,12 @@ const initProseMirror = (item) => {
     const $item = $(item);
     const id = $item.attr("id");
 
-    if ($item.data("prosemirror-field-id") !== id &&
-            (hasFeinCMS() && !id.includes("__prefix__"))) {
+    if (hasFeinCMS() && id.includes("__prefix__")) {
+        // Is prefixed, ignore
+        return;
+    }
+
+    if ($item.data("prosemirror-field-id") !== id) {
         $item.data("prosemirror-field-wrapper", new ProseMirrorWrapper(item));
         $item.data("prosemirror-field-id", id);
     }
