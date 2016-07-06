@@ -1,4 +1,5 @@
 # Development requirements
+commonmark
 django
 versioneer
 wheel

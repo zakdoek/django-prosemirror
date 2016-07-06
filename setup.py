@@ -23,7 +23,9 @@ PACKAGES = find_packages()
 CLASSIFIERS = [
     "Framework :: Django",
 ]
-INSTALL_REQUIRES = []
+INSTALL_REQUIRES = [
+    "commonmark>=0.7.0",
+]
 
 ###############################################################################
 
