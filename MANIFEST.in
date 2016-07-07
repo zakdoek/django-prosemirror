@@ -1,3 +1,4 @@
 include versioneer.py
 include prosemirror/_version.py
 recursive-include prosemirror/static *
+recursive-include prosemirror/templatetags *
