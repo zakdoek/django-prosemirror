@@ -91,7 +91,7 @@ const initProseMirror = (item) => {
     const $item = $(item);
     const id = $item.attr("id");
 
-    if (hasFeinCMS() && id.includes("__prefix__")) {
+    if (id.includes("__prefix__")) {
         // Is prefixed, ignore
         return;
     }
@@ -120,6 +120,12 @@ const hasFeinCMS = () => !!window.contentblock_init_handlers;
  * Bind initializers
  */
 $(document).ready(() => {
+    // Support inlines
+    $(document).on("formset:added", () => {
+        initProseMirrors();
+    });
+
+    // Support feincms
     if (hasFeinCMS()) {
         window.contentblock_init_handlers.push(() => initProseMirrors());
     }
