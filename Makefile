@@ -67,3 +67,7 @@ browserify:
 # Build wheel
 package:
 	@python setup.py sdist bdist_wheel
+
+# Upload wheel
+upload:
+	@python setup.py sdist bdist_wheel upload -r pypi

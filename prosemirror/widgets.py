@@ -4,7 +4,12 @@ Fields
 
 import json
 
-from django.core.urlresolvers import reverse_lazy
+try:
+    from django.urls import reverse_lazy
+except ImportError:
+    # Django <1.10 compliance
+    from django.core.urlresolvers import reverse_lazy
+
 from django.conf import settings
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django import forms
